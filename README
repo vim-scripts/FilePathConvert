@@ -1,0 +1,36 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=4885
+
+DESCRIPTION
+This plugin converts a file path and name that is inserted into the buffer
+between absolute and relative paths. This is especially useful after pasting
+in or completing (i_CTRL-X_CTRL-F) filespecs.
+
+RELATED WORKS
+- html_FileCompletion.vim (vimscript #4070) is insert mode completion of
+  URL-escaped file links relative to a document root and base URL.
+
+USAGE
+<Leader>sf              Convert the file whose name is under or after the
+                        cursor.
+{Visual}<Leader>sf      Convert the selected file name.
+
+                        A relative file path (../foo) is converted to an
+                        absolute one (/home/user/dir/foo).
+                        An absolute file path (/home/user/dir/foo) is
+                        converted to a relative one (../foo).
+                        On Windows, an absolute filespec starts with a drive
+                        letter (C:\foo) or a file share in UNC notation
+                        (\\host\share\foo).
+
+EXAMPLE
+Here's a simple illustration:
+    :cd C:\Windows\Temp
+    :edit test.txt
+The text
+    C:\Windows\System32\drivers\etc\hosts
+is turned into:
+    ..\System32\drivers\etc\hosts
+and
+    Cookies\index.dat
+is turned into:
+    C:\Windows\Temp\Cookies\index.dat

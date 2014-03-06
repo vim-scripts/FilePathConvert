@@ -1,0 +1,111 @@
+*FilePathConvert.txt*   Convert filespec between absolute, relative, and URL formats.
+
+		     FILE PATH CONVERT    by Ingo Karkat
+							 *FilePathConvert.vim*
+description			|FilePathConvert-description|
+usage				|FilePathConvert-usage|
+installation			|FilePathConvert-installation|
+configuration			|FilePathConvert-configuration|
+limitations			|FilePathConvert-limitations|
+known problems			|FilePathConvert-known-problems|
+todo				|FilePathConvert-todo|
+history				|FilePathConvert-history|
+
+==============================================================================
+DESCRIPTION					 *FilePathConvert-description*
+
+This plugin converts a file path and name that is inserted into the buffer
+between absolute and relative paths. This is especially useful after pasting
+in or completing (|i_CTRL-X_CTRL-F|) filespecs.
+
+RELATED WORKS								     *
+
+- html_FileCompletion.vim (vimscript #4070) is insert mode completion of
+  URL-escaped file links relative to a document root and base URL.
+
+==============================================================================
+USAGE						       *FilePathConvert-usage*
+						   *<Leader>sf* *v_<Leader>sf*
+<Leader>sf		Convert the file whose name is under or after the
+			cursor.
+{Visual}<Leader>sf	Convert the selected file name.
+
+			A relative file path (../foo) is converted to an
+			absolute one (/home/user/dir/foo).
+			An absolute file path (/home/user/dir/foo) is
+			converted to a relative one (../foo).
+			On Windows, an absolute filespec starts with a drive
+			letter (C:\foo) or a file share in UNC notation
+			(\\host\share\foo).
+
+EXAMPLE						     *FilePathConvert-example*
+
+Here's a simple illustration: >
+    :cd C:\Windows\Temp
+    :edit test.txt
+The text
+    C:\Windows\System32\drivers\etc\hosts ~
+is turned into:
+    ..\System32\drivers\etc\hosts ~
+and
+    Cookies\index.dat ~
+is turned into:
+    C:\Windows\Temp\Cookies\index.dat ~
+
+==============================================================================
+INSTALLATION					*FilePathConvert-installation*
+
+This script is packaged as a |vimball|. If you have the "gunzip" decompressor
+in your PATH, simply edit the *.vmb.gz package in Vim; otherwise, decompress
+the archive first, e.g. using WinZip. Inside Vim, install by sourcing the
+vimball or via the |:UseVimball| command. >
+    vim FilePathConvert*.vmb.gz
+    :so %
+To uninstall, use the |:RmVimball| command.
+
+DEPENDENCIES					*FilePathConvert-dependencies*
+
+- Requires Vim 7.0 or higher.
+- Requires the |ingo-library.vim| plugin (vimscript #4433), version 1.012 or
+  higher.
+- Requires the TextTransform plugin (vimscript #4005), version 1.22 or higher.
+
+==============================================================================
+CONFIGURATION				       *FilePathConvert-configuration*
+
+For a permanent configuration, put the following commands into your |vimrc|:
+						       *FilePathConvert-remap*
+If you want to use different mappings, map your keys to the
+<Plug>TextTFilePathConvert#... mapping targets _before_ sourcing the script
+(e.g. in your |vimrc|): >
+    nmap <Leader>sf <Plug>TextTFilePathConvert#FilePathConvertLine
+    xmap <Leader>sf <Plug>TextTFilePathConvert#FilePathConvertVisual
+<
+==============================================================================
+LIMITATIONS					 *FilePathConvert-limitations*
+
+KNOWN PROBLEMS				      *FilePathConvert-known-problems*
+
+TODO							*FilePathConvert-todo*
+
+- Add conversion to / from file:// URLs, with a configurable base dir and URL
+  prefix.
+
+IDEAS						       *FilePathConvert-ideas*
+
+==============================================================================
+HISTORY						     *FilePathConvert-history*
+
+1.00	06-Mar-2014
+First published version.
+
+0.01	09-May-2012
+Started development.
+
+==============================================================================
+Copyright: (C) 2012-2014 Ingo Karkat
+The VIM LICENSE applies to this plugin; see |copyright|.
+
+Maintainer:	Ingo Karkat <ingo@karkat.de>
+==============================================================================
+ vim:tw=78:ts=8:ft=help:norl:
