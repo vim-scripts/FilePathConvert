@@ -11,16 +11,27 @@ RELATED WORKS
 
 USAGE
 <Leader>sf              Convert the file whose name is under or after the
-                        cursor.
+                        cursor to a more local one:
+                        URL -> [ UNC -> ] absolute -> relative (-> absolute)
 {Visual}<Leader>sf      Convert the selected file name.
+
+<Leader>sF              Convert the file whose name is under or after the
+                        cursor to a more global one:
+                        relative -> absolute  -> [ UNC -> ] URL (-> UNC / abs)
+{Visual}<Leader>sF      Convert the selected file name.
 
                         A relative file path (../foo) is converted to an
                         absolute one (/home/user/dir/foo).
                         An absolute file path (/home/user/dir/foo) is
                         converted to a relative one (../foo).
                         On Windows, an absolute filespec starts with a drive
-                        letter (C:\foo) or a file share in UNC notation
-                        (\\host\share\foo).
+                        letter (C:\foo).
+                        A URL starts with a protocol like file://; the actual
+                        protocol is ignored here. Or it is a Windows file
+                        share in UNC notation (\\host\share\foo).
+                        Unless a mapping of URL prefix to mount point exists
+                        (see g:FilePathConvert_UrlMappings), this can only
+                        be mapped to a generic share in UNC notation.
 
 EXAMPLE
 Here's a simple illustration:
